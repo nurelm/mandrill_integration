@@ -24,6 +24,9 @@ class MandrillSender
     #https://mandrillapp.com/api/docs/messages.html
     response = [response.parsed_response].flatten.first
 
+    if response.key? 'reject_reason'
+      response.delete('reject_reason') if response['reject_reason'].nil?
+    end
 
     if %w{sent queued}.include?(response['status'])
         return 200, { 'message_id' => message_id,
