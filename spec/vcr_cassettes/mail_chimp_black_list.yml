@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://mandrillapp.com/api/1.0/messages/send-template.json
+    body:
+      encoding: UTF-8
+      string: ! '{"key":"91619e65-5a04-436b-b744-cefdb1107fab","template_name":"template","message":{"from_email":"andrew@spreecommerce.com","to":[{"email":"spree@example.com"}],"subject":"Test
+        Store 1 Order Confirmation","global_merge_vars":[{"name":"ship_address_first_name","content":"Santina"},{"name":"ship_address_last_name","content":"Quitzon"},{"name":"ship_address_company","content":null},{"name":"ship_address_address1","content":"5819
+        Derick Club"},{"name":"ship_address_address2","content":"Suite 240"},{"name":"ship_address_city","content":"South
+        William"},{"name":"ship_address_state","content":"NY"},{"name":"ship_address_country","content":"US"},{"name":"ship_address_zipcode","content":"16804"},{"name":"bill_address_first_name","content":"Santina"},{"name":"bill_address_last_name","content":"Quitzon"},{"name":"bill_address_company","content":null},{"name":"bill_address_address1","content":"5819
+        Derick Club"},{"name":"bill_address_address2","content":"Suite 240"},{"name":"bill_address_city","content":"South
+        William"},{"name":"bill_address_state","content":"NY"},{"name":"bill_address_country","content":"US"},{"name":"bill_address_zipcode","content":"16804"},{"name":"adjustment_promotion
+        (order refund)","content":"-18.30"},{"name":"adjustment_shipping","content":"19.30"},{"name":"adjustment_ny
+        sales tax 8.875%","content":"12.22"},{"name":"adjustment_promotion (refund)","content":"98.22"},{"name":"order_number","content":"R274662496"},{"name":"item_total","content":"47.97"},{"name":"total","content":"50.37"},{"name":"backordered","content":false},{"name":"line_item_rows","content":"\n        <tr>\n          <td>Ruby
+        on Rails Tote</td>\n          <td>3</td>\n          <td>15.99</td>\n        </tr>\n      "}]},"template_content":[{"name":"User
+        1","content":"Content 1"}]}'
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'false'
+      Access-Control-Allow-Headers:
+      - Content-Type
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 27 Feb 2013 19:26:17 GMT
+      Server:
+      - nginx/1.2.4
+      X-Powered-By:
+      - PHP/5.3.10-1ubuntu3.4
+      Content-Length:
+      - '47'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"email":"spree@example.com","status":"failure"}]'
+    http_version: 
+  recorded_at: Wed, 27 Feb 2013 19:26:17 GMT
+recorded_with: VCR 2.2.2
