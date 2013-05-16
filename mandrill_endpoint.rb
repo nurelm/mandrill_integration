@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/lib/mandrill_sender')
 Dir['./lib/**/*.rb'].each { |f| require f }
 
-class AuguryEndpoint < EndpointBase
+class MandrillEndpoint < EndpointBase
 
   set :logging, true
 

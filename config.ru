@@ -2,5 +2,5 @@ require 'rubygems'
 require 'bundler'
 
 Bundler.require(:default)
-require "./endpoint"
-run AuguryEndpoint
+require "./mandrill_endpoint"
+run MandrillEndpoint

@@ -3,15 +3,10 @@ require 'bundler'
 
 Bundler.require(:default, :test)
 
-require File.join(File.dirname(__FILE__), '..', 'endpoint.rb')
+require File.join(File.dirname(__FILE__), '..', 'mandrill_endpoint.rb')
 Dir["./spec/support/**/*.rb"].each {|f| require f}
 
 Sinatra::Base.environment = 'test'
-
-def app
-  AuguryEndpoint
-end
-#
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr_cassettes'

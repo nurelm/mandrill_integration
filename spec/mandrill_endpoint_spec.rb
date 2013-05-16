@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe "Sinatra App" do
+describe MandrillEndpoint do
 
   def auth
     {'HTTP_X_AUGURY_TOKEN' => 'x123', "CONTENT_TYPE" => "application/json"}
   end
 
   def app
-    AuguryEndpoint
+    described_class
   end
 
   let(:order_payload) { {'store_id' => '123229227575e4645c000001', "payload" => {"order" => { 'actual' => Factories.order} }, "message_id" => 'abc' } }
