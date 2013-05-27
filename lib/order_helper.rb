@@ -25,9 +25,15 @@ class OrderHelper
   end
 
   def variants
-    @variants ||= order['line_items'].map do |line_item|
-      line_item = line_item['line_item'] if line_item.key?('line_item')
-      line_item['variant']
+    @variants ||= if order.key? 'variants'
+      order['variants'].map do |variant|
+        variant.key?('variant') ? variant['variant'] : variant
+      end
+    else
+      order['line_items'].map do |line_item|
+        line_item = line_item['line_item'] if line_item.key?('line_item')
+        line_item['variant']
+      end
     end
   end
 
