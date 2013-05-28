@@ -1,0 +1,95 @@
+{
+  "name": "mandrill",
+  "description": "Sends transactional emails using Mandrill",
+  "consumers": [
+    {
+      "name": "order_confirmation",
+      "path": "/order_confirmation",
+      "requires": {
+        "parameters": [
+          {"name": "api_key", "description": "Mandril API key" },
+          {"name": "order_confirmation.from", "description": "Reply-to address for email" },
+          {"name": "order_confirmation.subject", "description": "Subject of email" },
+          {"name": "order_confirmation.template", "description": "Mandrill template name" }
+        ]
+      },
+      "recommends": {
+        "keys": ["order:new", "order:update"],
+        "events": [
+          {
+            "keys": [ {"name": "order_number", "path": "payload.order.actual.number" } ],
+            "details": [ {"name": "email", "path": "payload.order.actual.email" } ]
+          }
+        ],
+        "filters": [{"path": "payload.actual.order.complete", "operator": "eq", "value": "complete"}],
+        "options": {
+          "allow_retries": true
+        }
+      },
+      "produces": {
+        "messages": [
+          {"message": "email:sent", "schema": "http://mandrill.spree.mx/email.sent.json"},
+          {"message": "email:failure", "schema": "http://mandrill.spree.mx/email.failure.json" }
+        ]
+      }
+    },{
+      "name": "order_cancellation",
+      "path": "/order_cancellation",
+      "requires": {
+        "parameters": [
+          {"name": "api_key", "description": "Mandril API key" },
+          {"name": "order_cancellation.from", "description": "Reply-to address for email" },
+          {"name": "order_cancellation.subject", "description": "Subject of email" },
+          {"name": "order_cancellation.template", "description": "Mandrill template name" }
+        ]
+      },
+      "recommends": {
+        "keys": ["order:canceled"],
+        "events": [
+          {
+            "keys": [ {"name": "order_number", "path": "payload.order.actual.number" } ],
+            "details": [ {"name": "email", "path": "payload.order.actual.email" } ]
+          }
+        ],
+        "options": {
+          "allow_retries": true
+        }
+      },
+      "produces": {
+        "messages": [
+          {"message": "email:sent", "schema": "http://mandrill.spree.mx/email.sent.json"},
+          {"message": "email:failure", "schema": "http://mandrill.spree.mx/email.failure.json" }
+        ]
+      }
+    },{
+      "name": "shipment_confirmation",
+      "path": "/shipment_confirmation",
+      "requires": {
+        "parameters": [
+          {"name": "api_key", "description": "Mandril API key" },
+          {"name": "shipment_confirmation.from", "description": "Reply-to address for email" },
+          {"name": "shipment_confirmation.subject", "description": "Subject of email" },
+          {"name": "shipment_confirmation.template", "description": "Mandrill template name" }
+        ]
+      },
+      "recommends": {
+        "keys": ["shipment:confirmation"],
+        "events": [
+          {
+            "keys": [ {"name": "order_number", "path": "payload.order.actual.number" } ],
+            "details": [ {"name": "email", "path": "payload.order.actual.email" } ]
+          }
+        ],
+        "options": {
+          "allow_retries": true
+        }
+      },
+      "produces": {
+        "messages": [
+          {"message": "email:sent", "schema": "http://mandrill.spree.mx/email.sent.json"},
+          {"message": "email:failure", "schema": "http://mandrill.spree.mx/email.failure.json" }
+        ]
+      }
+    }
+  ]
+}

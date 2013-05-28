@@ -31,16 +31,12 @@ class MandrillSender
     if %w{sent queued}.include?(response['status'])
         return 200, { 'message_id' => message_id,
                  'order_number' => order['number'],
-                 'result' => :success,
-                 'code' => 200,
-                 'mandrill_response' => response
+                 'messages' => [{ 'message' => 'email:sent', 'payload' => response }]
         }
     else
         return 500, { 'message_id' => message_id,
                  'order_number' => order['number'],
-                 'result' => :failure,
-                 'code' => 400,
-                 'mandrill_response' => response
+                 'messages' => [{ 'message' => 'email:failure', 'payload' => response }]
                }
     end
 
