@@ -86,8 +86,8 @@
       },
       "produces": {
         "messages": [
-          {"message": "email:sent", "schema": "http://mandrill.spree.mx/email.sent.json"},
-          {"message": "email:failure", "schema": "http://mandrill.spree.mx/email.failure.json" }
+          {"message": "email:sent", "schema": "/email.sent.json"},
+          {"message": "email:failure", "schema": "/email.failure.json" }
         ]
       }
     }
