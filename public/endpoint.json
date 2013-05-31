@@ -11,7 +11,11 @@
           {"name": "order_confirmation.from", "description": "Reply-to address for email" },
           {"name": "order_confirmation.subject", "description": "Subject of email" },
           {"name": "order_confirmation.template", "description": "Mandrill template name" }
-        ]
+        ],
+       "humanizers": {
+         "200": "Order Confirmation email sent to {{email}}",
+         "400": "Order Confirmation email could not be sent to {{email}}"
+        }
       },
       "recommends": {
         "keys": ["order:new", "order:update"],
@@ -28,8 +32,8 @@
       },
       "produces": {
         "messages": [
-          {"message": "email:sent", "schema": "http://mandrill.spree.mx/email.sent.json"},
-          {"message": "email:failure", "schema": "http://mandrill.spree.mx/email.failure.json" }
+          {"message": "email:sent", "schema": "/email.sent.json"},
+          {"message": "email:failure", "schema": "/email.failure.json" }
         ]
       }
     },{
@@ -41,7 +45,11 @@
           {"name": "order_cancellation.from", "description": "Reply-to address for email" },
           {"name": "order_cancellation.subject", "description": "Subject of email" },
           {"name": "order_cancellation.template", "description": "Mandrill template name" }
-        ]
+        ],
+        "humanizers": {
+          "200": "Order Cancellation email sent to {{email}}",
+          "400": "Order Cancellation email could not be sent to {{email}}"
+        }
       },
       "recommends": {
         "keys": ["order:canceled"],
@@ -57,8 +65,8 @@
       },
       "produces": {
         "messages": [
-          {"message": "email:sent", "schema": "http://mandrill.spree.mx/email.sent.json"},
-          {"message": "email:failure", "schema": "http://mandrill.spree.mx/email.failure.json" }
+          {"message": "email:sent", "schema": "/email.sent.json"},
+          {"message": "email:failure", "schema": "/email.failure.json" }
         ]
       }
     },{
@@ -70,7 +78,11 @@
           {"name": "shipment_confirmation.from", "description": "Reply-to address for email" },
           {"name": "shipment_confirmation.subject", "description": "Subject of email" },
           {"name": "shipment_confirmation.template", "description": "Mandrill template name" }
-        ]
+        ],
+        "humanizers": {
+          "200": "Shipment Confirmation email sent to {{email}}",
+          "400": "Shipment Confirmation email could not be sent to {{email}}"
+        }
       },
       "recommends": {
         "keys": ["shipment:confirmation"],
