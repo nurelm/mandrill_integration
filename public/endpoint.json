@@ -145,22 +145,20 @@
                     "400": "Shipment Confirmation email could not be sent to {{email}}"
                 }
             },
-            "recommends": [
-                {
-                    "keys": [
-                        "shipment:confirmation"
-                    ],
-                    "event_key": {
-                        "order_number": "payload.order.actual.number"
-                    },
-                    "event_details": {
-                        "email": "payload.order.actual.email"
-                    },
-                    "options": {
-                        "retries_allowed": true
-                    }
+            "recommends": {
+                "keys": [
+                    "shipment:confirmation"
+                ],
+                "event_key": {
+                    "order_number": "payload.order.actual.number"
+                },
+                "event_details": {
+                    "email": "payload.order.actual.email"
+                },
+                "options": {
+                    "retries_allowed": true
                 }
-            ],
+            },
             "produces": {
                 "messages": [
                     {
