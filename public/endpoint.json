@@ -1,5 +1,6 @@
 {
     "name": "mandrill",
+    "display": "Mandrill",
     "description": "Sends transactional emails using Mandrill",
     "consumers": [
         {
