@@ -60,7 +60,7 @@ class MandrillSender
     vars << { name: 'order_number', content: order['number'] }
     vars << { name: 'item_total', content: format_money(order['item_total']) }
     vars << { name: 'total', content: format_money(order['total']) }
-    vars << { name: 'backordered', content: (order['shipment_state'] == "backorder") }
+    vars << { name: 'backordered', content: (order['shipment_state'] == "backorder").to_s }
     vars << { name: 'line_item_rows', content: line_item_rows }
   end
 
@@ -115,6 +115,6 @@ class MandrillSender
 
 end
 
-class AuthenticationError < StandardError 
+class AuthenticationError < StandardError
 
 end
