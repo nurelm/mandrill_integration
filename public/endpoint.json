@@ -2,10 +2,12 @@
     "name": "mandrill",
     "display": "Mandrill",
     "description": "Sends transactional emails using Mandrill",
+    "help": "http://guides.spreecommerce.com/integrator/endpoints/mandrill",
     "consumers": [
         {
             "name": "order_confirmation",
             "path": "/order_confirmation",
+            "description": "Send order confirmation emails when new orders are placed.",
             "requires": {
                 "parameters": [
                     {
@@ -68,6 +70,7 @@
         {
             "name": "order_cancellation",
             "path": "/order_cancellation",
+            "description": "Send order cancellation emails when orders are cancelled.",
             "requires": {
                 "parameters": [
                     {
@@ -122,6 +125,7 @@
         {
             "name": "shipment_confirmation",
             "path": "/shipment_confirmation",
+            "description": "Send shipment confirmation emails when shipments are dispatched.",
             "requires": {
                 "parameters": [
                     {
