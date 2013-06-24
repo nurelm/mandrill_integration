@@ -37,7 +37,7 @@
                     "order:new",
                     "order:update"
                 ],
-                "events_key": {
+                "event_key": {
                     "order_number": "payload.order.actual.number"
                 },
                 "event_details": {
@@ -99,7 +99,7 @@
                 "keys": [
                     "order:canceled"
                 ],
-                "events_key": {
+                "event_key": {
                     "order_number": "payload.order.actual.number"
                 },
                 "event_details": {
