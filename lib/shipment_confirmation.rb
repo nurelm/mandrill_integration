@@ -44,7 +44,7 @@ class ShipmentConfirmation < MandrillSender
   def shipped_items_html
     html = ""
     items.each do |item|
-      variant = order_helper.variant_by_external_ref(item['part_number'])
+      variant = order_helper.variant_by_ref(item['part_number'])
       html << %Q{
         <tr>
           <td>#{variant['name']}</td>

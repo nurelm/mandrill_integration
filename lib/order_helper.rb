@@ -37,8 +37,9 @@ class OrderHelper
     end
   end
 
-  def variant_by_external_ref(external_ref)
-    variants.find { |v| v['external_ref'] == external_ref }
+  def variant_by_ref(ref)
+    variant = variants.find { |v| v['sku'] == ref }
+    variant ||= variants.find { |v| v['external_ref'] == ref }
   end
 
   def variant_by_id(id)
