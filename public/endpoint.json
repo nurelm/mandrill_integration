@@ -33,15 +33,12 @@
                 }
             },
             "recommends": {
-                "keys": [
+                "messages": [
                     "order:new",
                     "order:update"
                 ],
-                "event_key": {
+                "identifiers": {
                     "order_number": "payload.order.actual.number"
-                },
-                "event_details": {
-                    "email": "payload.order.actual.email"
                 },
                 "filters": [
                     {
@@ -96,14 +93,11 @@
                 }
             },
             "recommends": {
-                "keys": [
+                "messages": [
                     "order:canceled"
                 ],
-                "event_key": {
+                "identifiers": {
                     "order_number": "payload.order.actual.number"
-                },
-                "event_details": {
-                    "email": "payload.order.actual.email"
                 },
                 "options": {
                     "allow_retries": true
@@ -151,14 +145,11 @@
                 }
             },
             "recommends": {
-                "keys": [
+                "messages": [
                     "shipment:confirmation"
                 ],
-                "event_key": {
+                "identifiers": {
                     "order_number": "payload.order.actual.number"
-                },
-                "event_details": {
-                    "email": "payload.order.actual.email"
                 },
                 "options": {
                     "retries_allowed": true
