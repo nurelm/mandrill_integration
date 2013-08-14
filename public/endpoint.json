@@ -26,11 +26,7 @@
                         "name": "order_confirmation.template",
                         "description": "Mandrill template name"
                     }
-                ],
-                "humanizers": {
-                    "200": "Order Confirmation email sent to {{email}}",
-                    "400": "Order Confirmation email could not be sent to {{email}}"
-                }
+                ]
             },
             "recommends": {
                 "messages": [
@@ -38,11 +34,11 @@
                     "order:update"
                 ],
                 "identifiers": {
-                    "order_number": "payload.order.actual.number"
+                    "order_number": "payload.order.number"
                 },
                 "filters": [
                     {
-                        "path": "payload.actual.order.complete",
+                        "path": "payload.order.status",
                         "operator": "eq",
                         "value": "complete"
                     }
@@ -86,18 +82,14 @@
                         "name": "order_cancellation.template",
                         "description": "Mandrill template name"
                     }
-                ],
-                "humanizers": {
-                    "200": "Order Cancellation email sent to {{email}}",
-                    "400": "Order Cancellation email could not be sent to {{email}}"
-                }
+                ]
             },
             "recommends": {
                 "messages": [
                     "order:canceled"
                 ],
                 "identifiers": {
-                    "order_number": "payload.order.actual.number"
+                    "order_number": "payload.order.number"
                 },
                 "options": {
                     "allow_retries": true
@@ -138,18 +130,14 @@
                         "name": "shipment_confirmation.template",
                         "description": "Mandrill template name"
                     }
-                ],
-                "humanizers": {
-                    "200": "Shipment Confirmation email sent to {{email}}",
-                    "400": "Shipment Confirmation email could not be sent to {{email}}"
-                }
+                ]
             },
             "recommends": {
                 "messages": [
                     "shipment:confirmation"
                 ],
                 "identifiers": {
-                    "order_number": "payload.order.actual.number"
+                    "order_number": "payload.order.number"
                 },
                 "options": {
                     "retries_allowed": true

@@ -6,7 +6,7 @@ class MandrillSender
   attr_accessor :order, :api_key, :config, :message_id
 
   def initialize(payload, message_id, config={})
-    @order = payload['order']['actual']
+    @order = payload['order']
     @config = config
     @api_key = config['mandrill.api_key']
     @message_id = message_id
@@ -53,14 +53,14 @@ class MandrillSender
   def merge_vars
     vars = Array.new
 
-    vars.concat address_vars('ship_address')
-    vars.concat address_vars('bill_address')
+    vars.concat address_vars('shipping_address')
+    vars.concat address_vars('billing_address')
     vars.concat adjustment_vars
 
     vars << { name: 'order_number', content: order['number'] }
-    vars << { name: 'item_total', content: format_money(order['item_total']) }
-    vars << { name: 'total', content: format_money(order['total']) }
-    vars << { name: 'backordered', content: (order['shipment_state'] == "backorder").to_s }
+    vars << { name: 'item_total', content: format_money(order['totals']['item']) }
+    vars << { name: 'total', content: format_money(order['totals']['order']) }
+    vars << { name: 'backordered', content: order['shipments'].any? {|s| s['status'] == "backorder"}.to_s }
     vars << { name: 'line_item_rows', content: line_item_rows }
   end
 
@@ -72,14 +72,8 @@ class MandrillSender
     vars << { name: "#{name}_address1", content: order[name]["address1"] }
     vars << { name: "#{name}_address2", content: order[name]["address2"] }
     vars << { name: "#{name}_city", content: order[name]["city"] }
-
-    if order[name]['state_id'].nil?
-      vars << { name: "#{name}_state", content: order[name]["state_name"] }
-    else
-      vars << { name: "#{name}_state", content: order[name]["state"]["abbr"] }
-    end
-
-    vars << { name: "#{name}_country", content: order[name]["country"]["iso"] }
+    vars << { name: "#{name}_state", content: order[name]["state"] }
+    vars << { name: "#{name}_country", content: order[name]["country"] }
     vars << { name: "#{name}_zipcode", content: order[name]["zipcode"] }
   end
 
@@ -87,7 +81,7 @@ class MandrillSender
     vars = Array.new
     order['adjustments'].each do |adjustment|
       adjustment = adjustment['adjustment'] if adjustment.key? 'adjustment'
-      vars << { name: "adjustment_#{adjustment['label'].downcase}",
+      vars << { name: "adjustment_#{adjustment['name'].downcase}",
                 content: format_money(adjustment['amount']) }
     end
     vars
@@ -96,11 +90,9 @@ class MandrillSender
   def line_item_rows
     line_item_html = ""
     order['line_items'].each do |line_item|
-      line_item = line_item['line_item'] if line_item.key? 'line_item'
-      variant = line_item['variant']
       line_item_html << %Q{
         <tr>
-          <td>#{variant['name']}</td>
+          <td>#{line_item['name']}</td>
           <td>#{line_item['quantity']}</td>
           <td>#{format_money line_item['price']}</td>
         </tr>
