@@ -12,19 +12,23 @@
                 "parameters": [
                     {
                         "name": "api_key",
-                        "description": "Mandril API key"
+                        "description": "Mandril API key",
+                        "data_type": "string"
                     },
                     {
                         "name": "order_confirmation.from",
-                        "description": "Reply-to address for email"
+                        "description": "Reply-to address for email",
+                        "data_type": "string"
                     },
                     {
                         "name": "order_confirmation.subject",
-                        "description": "Subject of email"
+                        "description": "Subject of email",
+                        "data_type": "string"
                     },
                     {
                         "name": "order_confirmation.template",
-                        "description": "Mandrill template name"
+                        "description": "Mandrill template name",
+                        "data_type": "string"
                     }
                 ]
             },
@@ -68,19 +72,23 @@
                 "parameters": [
                     {
                         "name": "api_key",
-                        "description": "Mandril API key"
+                        "description": "Mandril API key",
+                        "data_type": "string"
                     },
                     {
                         "name": "order_cancellation.from",
-                        "description": "Reply-to address for email"
+                        "description": "Reply-to address for email",
+                        "data_type": "string"
                     },
                     {
                         "name": "order_cancellation.subject",
-                        "description": "Subject of email"
+                        "description": "Subject of email",
+                        "data_type": "string"
                     },
                     {
                         "name": "order_cancellation.template",
-                        "description": "Mandrill template name"
+                        "description": "Mandrill template name",
+                        "data_type": "string"
                     }
                 ]
             },
@@ -116,19 +124,23 @@
                 "parameters": [
                     {
                         "name": "api_key",
-                        "description": "Mandril API key"
+                        "description": "Mandril API key",
+                        "data_type": "string"
                     },
                     {
                         "name": "shipment_confirmation.from",
-                        "description": "Reply-to address for email"
+                        "description": "Reply-to address for email",
+                        "data_type": "string"
                     },
                     {
                         "name": "shipment_confirmation.subject",
-                        "description": "Subject of email"
+                        "description": "Subject of email",
+                        "data_type": "string"
                     },
                     {
                         "name": "shipment_confirmation.template",
-                        "description": "Mandrill template name"
+                        "description": "Mandrill template name",
+                        "data_type": "string"
                     }
                 ]
             },
