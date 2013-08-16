@@ -12,7 +12,7 @@
                 "parameters": [
                     {
                         "name": "api_key",
-                        "description": "Mandril API key",
+                        "description": "Mandrill API key",
                         "data_type": "string"
                     },
                     {
@@ -72,7 +72,7 @@
                 "parameters": [
                     {
                         "name": "api_key",
-                        "description": "Mandril API key",
+                        "description": "Mandrill API key",
                         "data_type": "string"
                     },
                     {
@@ -124,7 +124,7 @@
                 "parameters": [
                     {
                         "name": "api_key",
-                        "description": "Mandril API key",
+                        "description": "Mandrill API key",
                         "data_type": "string"
                     },
                     {
