@@ -2,6 +2,7 @@
     "name": "mandrill",
     "display": "Mandrill",
     "description": "Sends transactional emails using Mandrill",
+    "icon_url": "mandrill.png",
     "help": "http://guides.spreecommerce.com/integration/endpoints/mandrill",
     "consumers": [
         {
