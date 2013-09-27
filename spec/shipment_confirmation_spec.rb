@@ -2,15 +2,7 @@ require 'spec_helper'
 
 describe ShipmentConfirmation do
 
-  subject { ShipmentConfirmation.new({ 'order' => { 'actual' => Factories.order }, 'shipment_number' => 'H438105531460',
-                                             'tracking_number' => '1234',
-                                             'tracking_url' => 'http://usps.com?q=123',
-                                             'carrier' => 'USPS',
-                                             'items' => [{
-                                               'part_number' => 'LB-BIT-w10-INVERTER-v03',
-                                               'quantity' => '2',
-                                               'serial_numbers' => 'SN1,SN2'
-                                             }] }, "Abc", {'mandrill.api_key' => '91619e65-5a04-436b-b744-cefdb1107fab',
+  subject { ShipmentConfirmation.new({ 'shipment' => Factories.order, {'mandrill.api_key' => '91619e65-5a04-436b-b744-cefdb1107fab',
                                                            'mandrill.shipment_confirmation.template' => 'shipment_confirmation',
                                                            'mandrill.shipment_confirmation.subject' => 'Test Store 1 Shipment Confirmation',
                                                            'mandrill.shipment_confirmation.from' => 'andrew@spreecommerce.com'}) }

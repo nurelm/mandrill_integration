@@ -177,5 +177,45 @@ module Factories
         ]
       }.merge(args)
     end
+
+    def self.shipment_confirm
+     {
+      "shipment" => {
+        "number" => "H07257244732",
+        "order_number" => "R862104306",
+        "email" => "wes@spreecommerce.com",
+        "cost" => 9.99,
+        "status" => "shipped",
+        "stock_location" => nil,
+        "shipping_method" => "FedEx",
+        "tracking" => nil,
+        "updated_at" => nil,
+        "shipped_at" => nil,
+        "shipping_address" => {
+          "firstname" => "",
+          "lastname" => "",
+          "address1" => "",
+          "address2" => "",
+          "zipcode" => "10018",
+          "city" => "New York",
+          "state" => "New York",
+          "country" => "US",
+          "phone" => "212-333-4444"
+        },
+        "items" => [
+          {
+            "name" => "Item 1",
+            "sku" => "LIN-01",
+            "external_ref" => "",
+            "quantity" => 1,
+            "price" => 2.25,
+            "variant_id" => 292,
+            "options" => {
+            }
+          }
+        ]
+      },
+      "order" => {}
+    }
   end
 end
