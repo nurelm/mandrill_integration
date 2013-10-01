@@ -4,11 +4,11 @@ class ShipmentConfirmation < MandrillSender
 
   def initialize(payload, message_id ,config)
     super
-    @order_helper = OrderHelper.new(order)
-    @shipment_number = payload['shipment_number']
-    @tracking_number = payload['tracking_number']
-    @shipped_date = payload['shipped_date']
-    @items = payload['items'] || []
+    #@order_helper = OrderHelper.new(order)
+    @shipment_number = payload['shipment']['number']
+    @tracking_number = payload['shipment']['tracking']
+    @shipped_date = payload['shipped_at']
+    @items = payload['shipment']['items'] || []
   end
 
   def request_body
@@ -40,12 +40,10 @@ class ShipmentConfirmation < MandrillSender
   def shipped_items_html
     html = ""
     items.each do |item|
-      variant = order_helper.variant_by_ref(item['part_number'])
       html << %Q{
         <tr>
-          <td>#{variant['name']}</td>
+          <td>#{item['name']}</td>
           <td>#{item['quantity']}</td>
-          <td>#{item['serial_numbers']}</td>
         </tr>
       }
     end
