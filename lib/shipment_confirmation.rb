@@ -7,8 +7,6 @@ class ShipmentConfirmation < MandrillSender
     @order_helper = OrderHelper.new(order)
     @shipment_number = payload['shipment_number']
     @tracking_number = payload['tracking_number']
-    @tracking_url = payload['tracking_url']
-    @carrier = payload['carrier']
     @shipped_date = payload['shipped_date']
     @items = payload['items'] || []
   end
@@ -34,10 +32,8 @@ class ShipmentConfirmation < MandrillSender
   def tracking_vars
     vars = []
     vars << { name: 'tracking_number', content: tracking_number }
-    vars << { name: 'carrier', content: carrier }
     vars << { name: 'shipped_date', content: shipped_date }
     vars << { name: 'items', content: shipped_items_html }
-    vars << { name: 'tracking_url', content: tracking_url }
     vars
   end
 
