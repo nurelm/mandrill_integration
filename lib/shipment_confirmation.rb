@@ -7,6 +7,7 @@ class ShipmentConfirmation < MandrillSender
     #@order_helper = OrderHelper.new(order)
     @shipment_number = payload['shipment']['number']
     @tracking_number = payload['shipment']['tracking']
+    @email = payload['shipment']['email']
     @shipped_date = payload['shipped_at']
     @items = payload['shipment']['items'] || []
   end
@@ -16,7 +17,7 @@ class ShipmentConfirmation < MandrillSender
       template_name: config['mandrill.shipment_confirmation.template'],
       message: {
         from_email: config['mandrill.shipment_confirmation.from'],
-        to: [{ email: order['email'] }],
+        to: [{ email: @email }],
         subject: config['mandrill.shipment_confirmation.subject'],
         global_merge_vars: merge_vars + tracking_vars,
       },
