@@ -178,7 +178,7 @@ module Factories
       }.merge(args)
     end
 
-    def self.shipment_confirm
+    def shipment_confirm
      {
       "shipment"=> {
           "number"=> "H66613",
@@ -306,5 +306,6 @@ module Factories
                ]
             }
           }
+    end
   end
 end

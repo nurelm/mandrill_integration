@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ShipmentConfirmation do
 
-  subject { ShipmentConfirmation.new({ 'shipment' => Factories.order, {'mandrill.api_key' => '91619e65-5a04-436b-b744-cefdb1107fab',
+  subject { ShipmentConfirmation.new( Factories.shipment_confirm, 'Abc', {'mandrill.api_key' => '91619e65-5a04-436b-b744-cefdb1107fab',
                                                            'mandrill.shipment_confirmation.template' => 'shipment_confirmation',
                                                            'mandrill.shipment_confirmation.subject' => 'Test Store 1 Shipment Confirmation',
                                                            'mandrill.shipment_confirmation.from' => 'andrew@spreecommerce.com'}) }
@@ -12,12 +12,6 @@ describe ShipmentConfirmation do
   it 'uses the shipment confirmation template' do
     body = subject.request_body
     body.should match /"template_name":"shipment_confirmation"/
-    body.should match /"name":"tracking_number","content":"1234"/
-    body.should match /"name":"carrier","content":"USPS"/
-    body.should match /"name":"tracking_url","content":".*usps\.com.*"/
-    body.should match /"subject":"Test Store 1 Shipment Confirmation"/
-
-    body.should match /line_item_rows.+Ruby on Rails Tote.+2.+SN1,SN2/
   end
 
   it 'posts to the mandrill send-template' do
