@@ -10,9 +10,9 @@ module Factories
         'adjustment_total' => '2.4',
         'payment_total' => '0.0',
         'user_id' => '407201487',
-        'created_at' => '2012-09-10T13:37:33Z',
-        'updated_at' => '2012-09-10T13:37:33Z',
-        'completed_at' => '2012-09-10T13:37:33Z',
+        'created_at' => '2012-09-10T13=>37=>33Z',
+        'updated_at' => '2012-09-10T13=>37=>33Z',
+        'completed_at' => '2012-09-10T13=>37=>33Z',
         'shipment_state' => 'pending',
         'payment_state' => 'balance_due',
         'email' => 'andrew@spreecommerce.com',
@@ -147,7 +147,7 @@ module Factories
               'id'=> 1073053959,
               'amount'=> '-18.3',
               'label'=> 'Promotion (Order Refund)',
-              'originator_type' => 'Spree::PromotionAction',
+              'originator_type' => 'Spree=>=>PromotionAction',
               'eligible' => true
                }},
           {
@@ -155,7 +155,7 @@ module Factories
               'id'=> 1073053960,
               'amount'=> '19.3',
               'label'=> 'Shipping',
-              'originator_type' => 'Spree::ShippingMethod',
+              'originator_type' => 'Spree=>=>ShippingMethod',
               'eligible' => true
                }},
           {
@@ -163,8 +163,8 @@ module Factories
               'id'=> 1073053961,
               'amount'=> '12.22',
               'label'=> 'NY Sales Tax 8.875%',
-              'originator_type' => 'Spree::TaxRate',
-              'adjustable_type' => 'Spree::Order',
+              'originator_type' => 'Spree=>=>TaxRate',
+              'adjustable_type' => 'Spree=>=>Order',
               'eligible' => true
                }},
                {
@@ -180,42 +180,131 @@ module Factories
 
     def self.shipment_confirm
      {
-      "shipment" => {
-        "number" => "H07257244732",
-        "order_number" => "R862104306",
-        "email" => "wes@spreecommerce.com",
-        "cost" => 9.99,
-        "status" => "shipped",
-        "stock_location" => nil,
-        "shipping_method" => "FedEx",
-        "tracking" => nil,
-        "updated_at" => nil,
-        "shipped_at" => nil,
-        "shipping_address" => {
-          "firstname" => "",
-          "lastname" => "",
-          "address1" => "",
-          "address2" => "",
-          "zipcode" => "10018",
-          "city" => "New York",
-          "state" => "New York",
-          "country" => "US",
-          "phone" => "212-333-4444"
-        },
-        "items" => [
-          {
-            "name" => "Item 1",
-            "sku" => "LIN-01",
-            "external_ref" => "",
-            "quantity" => 1,
-            "price" => 2.25,
-            "variant_id" => 292,
-            "options" => {
+      "shipment"=> {
+          "number"=> "H66613",
+          "order_number"=> "R054184",
+          "email"=> "wes@spreecommerce.com",
+          "cost"=> 9.99,
+          "status"=> "shipped",
+          "stock_location"=> nil,
+          "shipping_method"=> "Fedex",
+          "tracking"=> "123445",
+          "updated_at"=> nil,
+          "shipped_at"=> nil,
+          "shipping_address"=> {
+              "firstname"=> "bob",
+              "lastname"=> "bob",
+              "address1"=> "123 First Avenue",
+              "address2"=> "",
+              "zipcode"=> "10018",
+              "city"=> "Somewhere",
+              "state"=> "New York",
+              "country"=> "US",
+              "phone"=> "123-234-6767"
+          },
+          "items"=> [
+              {
+                  "name"=> "test",
+                  "sku"=> "12345",
+                  "external_ref"=> "",
+                  "quantity"=> 1,
+                  "price"=> 70,
+                  "variant_id"=> 5,
+                  "options"=> {}
+              }
+          ]
+      },
+      "order"=> {
+          "number"=> "R054575184",
+          "channel"=> "spree",
+          "email"=> "wes@spreecommerce.com",
+          "currency"=> "USD",
+          "placed_on"=> "2013-09-24T14=> 45=>29 Z",
+          "updated_at"=> "2013-09-24T14=> 45=>29 Z",
+          "status"=> "complete",
+          "totals"=> {
+              "item"=> 74.5,
+              "adjustment"=> 16.51,
+              "tax"=> 6.52,
+              "shipping"=> 0,
+              "payment"=> 91.01,
+              "order"=> 91.01
+          },
+          "line_items"=> [
+              {
+                  "name"=> "test",
+                  "sku"=> "12345",
+                  "external_ref"=> "",
+                  "quantity"=> 1,
+                  "price"=> 70,
+                  "variant_id"=> 5,
+                  "options"=> {}
+              }
+          ],
+          "adjustments"=> [
+              {
+                  "name"=> "Shipping",
+                  "value"=> 9.99
+              },
+              {
+                  "name"=> "NYC General Tax 8.75%",
+                  "value"=> 6.52
+              }
+          ],
+          "shipping_address"=> {
+              "firstname"=> "bob",
+              "lastname"=> "bob",
+              "address1"=> "123 First Avenue",
+              "address2"=> "",
+              "zipcode"=> "10018",
+              "city"=> "Somewhere",
+              "state"=> "New York",
+              "country"=> "US",
+              "phone"=> "212-313-1234"
+          },
+          "billing_address"=> {
+              "firstname"=> "bob",
+              "lastname"=> "bob",
+              "address1"=> "123 First Avenue",
+              "address2"=> "",
+              "zipcode"=> "10018",
+              "city"=> "Somewhere",
+              "state"=> "New York",
+              "country"=> "US",
+              "phone"=> "212-223-1234"
+          },
+          "payments"=> [
+              {
+                  "number"=> 27,
+                  "status"=> "completed",
+                  "amount"=> 91.01,
+                  "payment_method"=> ""
+              }
+          ],
+          "shipments"=> [
+              {
+                  "number"=> "H64222",
+                  "cost"=> 9.99,
+                  "status"=> "shipped",
+                  "stock_location"=> nil,
+                  "shipping_method"=> "Fedex",
+                  "tracking"=> nil,
+                  "updated_at"=> nil,
+                  "shipped_at"=> nil,
+                  "items"=> [
+                      {
+                          "name"=> "test",
+                          "sku"=> "123",
+                          "external_ref"=> "",
+                          "quantity"=> 1,
+                          "price"=> 70,
+                          "variant_id"=> 5,
+                          "options"=> {}
+                      }
+                    ]
+                  }
+               ]
             }
           }
-        ]
-      },
-      "order" => {}
-    }
   end
 end
