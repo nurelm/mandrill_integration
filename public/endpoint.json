@@ -147,10 +147,10 @@
             },
             "recommends": {
                 "messages": [
-                    "shipment:confirmation"
+                    "shipment:confirm"
                 ],
                 "identifiers": {
-                    "order_number": "payload.order.number"
+                    "order_number": "payload.shipment.order_number"
                 },
                 "options": {
                     "retries_allowed": true
