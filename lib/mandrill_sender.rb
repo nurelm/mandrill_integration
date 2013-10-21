@@ -67,6 +67,8 @@ class MandrillSender
       vars << { name: 'backordered', content: order['shipments'].any? {|s| s['status'] == "backorder"}.to_s }
       vars << { name: 'line_item_rows', content: line_item_rows }
     end
+
+    vars
   end
 
   def address_vars(name)
