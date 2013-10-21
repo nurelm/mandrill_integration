@@ -60,13 +60,17 @@ class MandrillSender
     vars.concat adjustment_vars
 
     vars << { name: 'order_number', content: order['number'] }
-    vars << { name: 'item_total', content: format_money(order['totals']['item']) }
-    vars << { name: 'total', content: format_money(order['totals']['order']) }
-    vars << { name: 'backordered', content: order['shipments'].any? {|s| s['status'] == "backorder"}.to_s }
-    vars << { name: 'line_item_rows', content: line_item_rows }
+   
+    if order.has_key?('totals') 
+      vars << { name: 'item_total', content: format_money(order['totals']['item']) }
+      vars << { name: 'total', content: format_money(order['totals']['order']) }
+      vars << { name: 'backordered', content: order['shipments'].any? {|s| s['status'] == "backorder"}.to_s }
+      vars << { name: 'line_item_rows', content: line_item_rows }
+    end
   end
 
   def address_vars(name)
+    return [] if order[name].nil?
     vars = Array.new
     vars << { name: "#{name}_first_name", content: order[name]["firstname"] }
     vars << { name: "#{name}_last_name", content: order[name]["lastname"] }
@@ -81,6 +85,7 @@ class MandrillSender
 
   def adjustment_vars
     vars = Array.new
+    return [] unless order.has_key?('adjustments')
     order['adjustments'].each do |adjustment|
       adjustment = adjustment['adjustment'] if adjustment.key? 'adjustment'
       vars << { name: "adjustment_#{adjustment['name'].downcase}",
