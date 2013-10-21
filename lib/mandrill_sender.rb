@@ -31,12 +31,14 @@ class MandrillSender
     if %w{sent queued}.include?(response['status'])
         return 200, { 'message_id' => message_id,
                  'order_number' => order['number'],
-                 'messages' => [{ 'message' => 'email:sent', 'payload' => response }]
+                 'messages' => [{ 'message' => 'email:sent', 'payload' => response }],
+                 'notifications' => [{'level' => 'info','subject' => "Email Sent to #{order['email']}",'description' => "Email Sent to #{order['email']}"}]
         }
     else
         return 500, { 'message_id' => message_id,
                  'order_number' => order['number'],
-                 'messages' => [{ 'message' => 'email:failure', 'payload' => response }]
+                 'messages' => [{ 'message' => 'email:failure', 'payload' => response }],
+		 'notifications' => [{'level' => 'error', 'subject' => "Email failed to send to #{order['email']}", 'description' => response}]
                }
     end
 
