@@ -6,7 +6,7 @@ class MandrillSender
   attr_accessor :order, :api_key, :config, :message_id
 
   def initialize(payload, message_id, config={})
-    @order = payload['order']
+    @order = payload['order'] || payload['shipment']
     @config = config
     @api_key = config['mandrill.api_key']
     @message_id = message_id
