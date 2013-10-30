@@ -1,4 +1,9 @@
 class OrderConfirmation < MandrillSender
+
+  def description
+    "Order Confirmation"
+  end
+
   def request_body
     { key: api_key,
       template_name: config['mandrill.order_confirmation.template'],

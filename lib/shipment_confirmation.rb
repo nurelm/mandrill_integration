@@ -12,6 +12,10 @@ class ShipmentConfirmation < MandrillSender
     @items = payload['shipment']['items'] || []
   end
 
+  def description
+    "Shipment Confirmation"
+  end
+
   def request_body
     { key: api_key,
       template_name: config['mandrill.shipment_confirmation.template'],

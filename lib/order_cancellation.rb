@@ -1,4 +1,7 @@
 class OrderCancellation < MandrillSender
+  def description
+    "Order Cancellation"
+  end
 
   def request_body
     { key: api_key,

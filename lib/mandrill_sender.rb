@@ -13,6 +13,10 @@ class MandrillSender
     raise AuthenticationError if @api_key.nil?
   end
 
+  def description
+    "Unknown Email"
+  end
+
   def consume
     options = {
       body: request_body
@@ -32,13 +36,13 @@ class MandrillSender
         return 200, { 'message_id' => message_id,
                  'order_number' => order['number'],
                  'messages' => [{ 'message' => 'email:sent', 'payload' => response }],
-                 'notifications' => [{'level' => 'info','subject' => "Email Sent to #{order['email']}",'description' => "Email Sent to #{order['email']}"}]
+                 'notifications' => [{'level' => 'info','subject' => "#{description} Sent to #{order['email']}",'description' => "Email Sent to #{order['email']}"}]
         }
     else
         return 500, { 'message_id' => message_id,
                  'order_number' => order['number'],
                  'messages' => [{ 'message' => 'email:failure', 'payload' => response }],
-		 'notifications' => [{'level' => 'error', 'subject' => "Email failed to send to #{order['email']}", 'description' => response}]
+		 'notifications' => [{'level' => 'error', 'subject' => "#{description} failed to send to #{order['email']}", 'description' => response}]
                }
     end
 
