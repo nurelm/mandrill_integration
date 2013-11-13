@@ -1,12 +1,13 @@
 class ShipmentConfirmation < MandrillSender
   attr_accessor :shipment_number, :order_helper, :tracking_number,
-                :carrier, :shipped_date, :items, :tracking_url
+                :carrier, :shipped_date, :items, :tracking_url, :shipping_method
 
   def initialize(payload, message_id ,config)
     super
     #@order_helper = OrderHelper.new(order)
     @shipment_number = payload['shipment']['number']
     @tracking_number = payload['shipment']['tracking']
+    @shipping_method = payload['shipment']['shipping_method']
     @email = payload['shipment']['email']
     @shipped_date = payload['shipped_at']
     @items = payload['shipment']['items'] || []
@@ -37,6 +38,7 @@ class ShipmentConfirmation < MandrillSender
   def tracking_vars
     vars = []
     vars << { name: 'tracking_number', content: tracking_number }
+    vars << { name: 'shipping_method', content: shipping_method }
     vars << { name: 'shipped_date', content: shipped_date }
     vars << { name: 'items', content: shipped_items_html }
     vars
