@@ -51,7 +51,8 @@ class MandrillSender
 		      'notifications' => [{
             'level' => 'error',
             'subject' => "#{description} failed to send to #{order['email']}",
-            'description' => response
+            'description' => "#{description} failed to send to #{order['email']}",
+            'mandrill' => response
           }]
         }
     end
