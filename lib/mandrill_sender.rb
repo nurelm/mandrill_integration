@@ -105,7 +105,7 @@ class MandrillSender
     order['adjustments'].each do |adjustment|
       adjustment = adjustment['adjustment'] if adjustment.key? 'adjustment'
       vars << { name: "adjustment_#{adjustment['name'].downcase}",
-                content: format_money(adjustment['amount']) }
+                content: format_money(adjustment['amount'] || adjustment['value']) }
     end
     vars
   end
