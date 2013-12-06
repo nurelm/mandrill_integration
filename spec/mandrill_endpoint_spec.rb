@@ -10,6 +10,11 @@ describe MandrillEndpoint do
     described_class
   end
 
+  let(:payload) { {} }
+ 
+
+  #------------------ old functionality
+
   let(:order_payload) { {'store_id' => '123229227575e4645c000001', "payload" => {"order" => { 'actual' => Factories.order} }, "message_id" => 'abc' } }
 
   let(:shipment_payload) do
