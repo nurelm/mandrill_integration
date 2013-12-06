@@ -51,18 +51,6 @@
                 "options": {
                     "retries_allowed": true
                 }
-            },
-            "produces": {
-                "messages": [
-                    {
-                        "message": "email:sent",
-                        "schema": "/email.sent.json"
-                    },
-                    {
-                        "message": "email:failure",
-                        "schema": "/email.failure.json"
-                    }
-                ]
             }
         },
         {
@@ -103,18 +91,6 @@
                 "options": {
                     "allow_retries": true
                 }
-            },
-            "produces": {
-                "messages": [
-                    {
-                        "message": "email:sent",
-                        "schema": "/email.sent.json"
-                    },
-                    {
-                        "message": "email:failure",
-                        "schema": "/email.failure.json"
-                    }
-                ]
             }
         },
         {
@@ -155,18 +131,6 @@
                 "options": {
                     "retries_allowed": true
                 }
-            },
-            "produces": {
-                "messages": [
-                    {
-                        "message": "email:sent",
-                        "schema": "/email.sent.json"
-                    },
-                    {
-                        "message": "email:failure",
-                        "schema": "/email.failure.json"
-                    }
-                ]
             }
         }
     ]
