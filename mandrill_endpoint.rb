@@ -27,15 +27,20 @@ class MandrillEndpoint < EndpointBase
       { 'name' => name, 'content' => value }
     end
 
+    template = @message[:payload]['email']['template']
+    to_addr = @message[:payload]['email']['to']
+    from_addr = @message[:payload]['email']['from']
+    subject = @message[:payload]['email']['subject']
+
     # create Mandrill request
     #
     request_body = {
       key: @config['mandrill.api_key'],
-      template_name: @message[:payload]['email']['template'],
+      template_name: template,
       message: {
-        from_email: @message[:payload]['email']['from'],
-        to: [{ email: @message[:payload]['email']['to'] }],
-        subject: @message[:payload]['email']['subject'],
+        from_email: from_addr,
+        to: [{ email: to_addr }],
+        subject: subject,
         global_merge_vars: global_merge_vars
       },
       template_content: [
@@ -65,8 +70,8 @@ class MandrillEndpoint < EndpointBase
           'message_id' => @message[:message_id],
           'notifications' => [{
             'level' => 'info',
-            'subject' => " Sent to #{}",
-            'description' => "Email Sent to #{}",
+            'subject' => "Sent '#{subject}' email to #{to_addr}",
+            'description' => "Sent '#{subject}' email to #{to_addr}",
             'mandrill' => response
           }]
         }
@@ -75,8 +80,8 @@ class MandrillEndpoint < EndpointBase
           'message_id' => @message[:message_id],
           'notifications' => [{
             'level' => 'error',
-            'subject' => "#{} failed to send to #{'email'}",
-            'description' => "#{} failed to send to #{'email'}",
+            'subject' => "Failed to send '#{subject}' email to #{to_addr}",
+            'description' => "Failed to send '#{subject}' email to #{to_addr}",
             'mandrill' => response
           }]
         }
