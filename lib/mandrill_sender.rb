@@ -36,7 +36,6 @@ class MandrillSender
         return 200, {
           'message_id' => message_id,
           'order_number' => order['number'],
-          'messages' => [{ 'message' => 'email:sent', 'payload' => response }],
           'notifications' => [{
             'level' => 'info',
             'subject' => "#{description} Sent to #{order['email']}",
@@ -47,7 +46,6 @@ class MandrillSender
         return 500, {
           'message_id' => message_id,
           'order_number' => order['number'],
-          'messages' => [{ 'payload' => response }],
 		      'notifications' => [{
             'level' => 'error',
             'subject' => "#{description} failed to send to #{order['email']}",

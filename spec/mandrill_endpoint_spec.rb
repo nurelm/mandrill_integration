@@ -35,7 +35,7 @@ describe MandrillEndpoint do
     VCR.use_cassette('mail_chimp_confirmation') do
       post '/order_confirmation', order_payload.to_json, auth
       last_response.status.should == 200
-      last_response.body.should match /"status":"sent"/
+      last_response.body.should match /Order Confirmation sent to/i
     end
   end
 
@@ -48,7 +48,7 @@ describe MandrillEndpoint do
     VCR.use_cassette('mail_chimp_cancellation') do
       post '/order_cancellation', order_payload.to_json, auth
       last_response.status.should == 200
-      last_response.body.should match /"status":"sent"/
+      last_response.body.should match /order cancellation sent to/i
     end
   end
 
@@ -60,7 +60,7 @@ describe MandrillEndpoint do
 
     VCR.use_cassette('shipment_confirmation') do
       post '/shipment_confirmation', shipment_payload.to_json, auth
-      last_response.body.should match /"status":"sent"/
+      last_response.body.should match /shipment confirmation sent to/i
     end
   end
 
