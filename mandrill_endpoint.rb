@@ -66,29 +66,26 @@ class MandrillEndpoint < EndpointBase
     end
 
     if %w{sent queued}.include?(response['status'])
-        process_result 200, {
-          'message_id' => @message[:message_id],
-          'notifications' => [{
-            'level' => 'info',
-            'subject' => "Sent '#{subject}' email to #{to_addr}",
-            'description' => "Sent '#{subject}' email to #{to_addr}",
-            'mandrill' => response
-          }]
-        }
+      process_result 200, {
+        'message_id' => @message[:message_id],
+        'notifications' => [{
+          'level' => 'info',
+          'subject' => "Sent '#{subject}' email to #{to_addr}",
+          'description' => "Sent '#{subject}' email to #{to_addr}",
+          'mandrill' => response
+        }]
+      }
     else
-        process_result 500, {
-          'message_id' => @message[:message_id],
-          'notifications' => [{
-            'level' => 'error',
-            'subject' => "Failed to send '#{subject}' email to #{to_addr}",
-            'description' => "Failed to send '#{subject}' email to #{to_addr}",
-            'mandrill' => response
-          }]
-        }
+      process_result 200, {
+        'message_id' => @message[:message_id],
+        'notifications' => [{
+          'level' => 'warning',
+          'subject' => "Failed to send '#{subject}' email to #{to_addr}",
+          'description' => "Failed to send '#{subject}' email to #{to_addr}",
+          'mandrill' => response
+        }]
+      }
     end
   end
-
-  private
-
 
 end
