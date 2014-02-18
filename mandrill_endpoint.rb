@@ -1,21 +1,21 @@
-require File.expand_path(File.dirname(__FILE__) + '/lib/mandrill_sender')
 Dir['./lib/**/*.rb'].each { |f| require f }
 
-class MandrillEndpoint < EndpointBase
+class MandrillEndpoint < EndpointBase::Sinatra::Base
 
   set :logging, true
 
-  post '/send_mail' do
+  post '/send_email' do
     # convert variables into Mandrill array / hash format.
     #
-    global_merge_vars = @message[:payload]['email']['variables'].map do |name, value|
+
+    global_merge_vars = @payload['email']['variables'].map do |name, value|
       { 'name' => name, 'content' => value }
     end
 
-    template = @message[:payload]['email']['template']
-    to_addr = @message[:payload]['email']['to']
-    from_addr = @message[:payload]['email']['from']
-    subject = @message[:payload]['email']['subject']
+    template = @payload['email']['template']
+    to_addr = @payload['email']['to']
+    from_addr = @payload['email']['from']
+    subject = @payload['email']['subject']
 
     # create Mandrill request
     #
@@ -45,31 +45,15 @@ class MandrillEndpoint < EndpointBase
     #ugly because it could be a hash or an array
     #https://mandrillapp.com/api/docs/messages.html
     response = [response.parsed_response].flatten.first
-
-    if response.key? 'reject_reason'
-      response.delete('reject_reason') if response['reject_reason'].nil?
-    end
+    reason = response['reject_reason'] || response['reject_reason']
 
     if %w{sent queued}.include?(response['status'])
-      process_result 200, {
-        'message_id' => @message[:message_id],
-        'notifications' => [{
-          'level' => 'info',
-          'subject' => "Sent '#{subject}' email to #{to_addr}",
-          'description' => "Sent '#{subject}' email to #{to_addr}",
-          'mandrill' => response
-        }]
-      }
+      set_summary "Sent '#{subject}' email to #{to_addr}"
+      add_value :mandrill_message_id, response["_id"]
+      process_result 200
     else
-      process_result 200, {
-        'message_id' => @message[:message_id],
-        'notifications' => [{
-          'level' => 'warning',
-          'subject' => "Failed to send '#{subject}' email to #{to_addr}",
-          'description' => "Failed to send '#{subject}' email to #{to_addr}",
-          'mandrill' => response
-        }]
-      }
+      set_summary "Failed to send '#{subject}' email to #{to_addr} - #{reason}"
+      process_result 200
     end
   end
 
