@@ -2,15 +2,7 @@ require 'spec_helper'
 
 describe MandrillEndpoint do
 
-  def auth
-    {'HTTP_X_AUGURY_TOKEN' => 'x123', "CONTENT_TYPE" => "application/json"}
-  end
-
-  def app
-    described_class
-  end
-
-  let(:payload) { 
+  let(:payload) {
     '{"request_id": "12e12341523e449c3000001",
       "parameters": {
           "mandrill.api_key":"abc123"},
@@ -31,10 +23,11 @@ describe MandrillEndpoint do
   it "should respond to POST send_email" do
     VCR.use_cassette('mail_chimp_send') do
       post '/send_email', payload, auth
-      last_response.status.should == 200
-      last_response.body.should match /Sent 'Order R123456 was shipped!' email/
+      expect(last_response.status).to eql 200
+      expect(json_response["request_id"]).to eql "12e12341523e449c3000001"
+      expect(json_response["summary"]).to match /Sent 'Order R123456 was shipped!' email/
     end
   end
- 
+
 end
 
