@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:spree/endpoint_base.git
+  remote: git://github.com/spree/endpoint_base.git
   revision: 3f60269d2dce35d628928bd1b5573d0a375d3995
   specs:
     endpoint_base (0.3)
