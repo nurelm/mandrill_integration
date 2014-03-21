@@ -1,7 +1,6 @@
 Dir['./lib/**/*.rb'].each { |f| require f }
 
 class MandrillEndpoint < EndpointBase::Sinatra::Base
-  endpoint_key "532b6c89b439570e4600469f"
 
   set :logging, true
 
