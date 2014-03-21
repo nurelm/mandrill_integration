@@ -5,7 +5,7 @@ describe MandrillEndpoint do
   let(:payload) {
     '{"request_id": "12e12341523e449c3000001",
       "parameters": {
-          "mandrill.api_key":"abc123"},
+          "mandrill_api_key":"abc123"},
       "email": {
         "to": "spree@example.com",
         "from": "spree@example.com",

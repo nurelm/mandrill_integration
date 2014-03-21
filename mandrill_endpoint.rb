@@ -20,7 +20,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
     # create Mandrill request
     #
     request_body = {
-      key: @config['mandrill.api_key'],
+      key: @config['mandrill_api_key'],
       template_name: template,
       message: {
         from_email: from_addr,
