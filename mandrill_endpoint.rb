@@ -45,7 +45,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
     #ugly because it could be a hash or an array
     #https://mandrillapp.com/api/docs/messages.html
     response = [response.parsed_response].flatten.first
-    reason = response['reject_reason'] || response['reject_reason']
+    reason = response['reject_reason'] || response.inspect
 
     if %w{sent queued}.include?(response['status'])
       set_summary "Sent '#{subject}' email to #{to_addr}"
@@ -53,7 +53,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
       process_result 200
     else
       set_summary "Failed to send '#{subject}' email to #{to_addr} - #{reason}"
-      process_result 200
+      process_result 500
     end
   end
 
