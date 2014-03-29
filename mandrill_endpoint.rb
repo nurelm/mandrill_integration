@@ -14,7 +14,8 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
 
     template = @payload['email']['template']
     to_addr = @payload['email']['to']
-    from_addr = @payload['email']['from']
+    from_addr = @payload['email']['sender_email'] || @payload['email']['from']
+    from_name = @payload['email']['sender_name'] || from_addr
     subject = @payload['email']['subject']
 
     # create Mandrill request
@@ -24,6 +25,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
       template_name: template,
       message: {
         from_email: from_addr,
+        from_name: from_name,
         to: [{ email: to_addr }],
         subject: subject,
         global_merge_vars: global_merge_vars
