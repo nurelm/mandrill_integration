@@ -17,6 +17,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
     from_addr = @payload['email']['sender_email'] || @payload['email']['from']
     from_name = @payload['email']['sender_name'] || from_addr
     subject = @payload['email']['subject']
+    bcc_address = @payload['email']['bcc_address'] || ""
 
     # create Mandrill request
     #
@@ -27,6 +28,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
         from_email: from_addr,
         from_name: from_name,
         to: [{ email: to_addr }],
+	bcc_address: bcc_address,
         subject: subject,
         global_merge_vars: global_merge_vars
       },
