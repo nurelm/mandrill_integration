@@ -7,6 +7,11 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
   post '/send_email' do
     # convert variables into Mandrill array / hash format.
     #
+    if @payload.key? 'email'
+      set_summary "No Email Key found in Payload"
+      add_value :payload_inspect, @payload.inspect
+      process_result 500 
+    end
 
     global_merge_vars = @payload['email']['variables'].map do |name, value|
       { 'name' => name, 'content' => value }
