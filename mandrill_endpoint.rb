@@ -1,16 +1,19 @@
 Dir['./lib/**/*.rb'].each { |f| require f }
 
 class MandrillEndpoint < EndpointBase::Sinatra::Base
-
   set :logging, true
+
+  Honeybadger.configure do |config|
+    config.api_key = ENV['HONEYBADGER_KEY']
+    config.environment_name = ENV['RACK_ENV']
+  end
 
   post '/send_email' do
     # convert variables into Mandrill array / hash format.
     #
     if !(@payload.key? 'email')
-      set_summary "No Email Key found in Payload"
       add_value :payload_inspect, @payload.inspect
-      process_result 500 
+      result 500, "No Email Key found in Payload"
     end
 
     global_merge_vars = @payload['email']['variables'].map do |name, value|
@@ -33,7 +36,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
         from_email: from_addr,
         from_name: from_name,
         to: [{ email: to_addr }],
-	bcc_address: bcc_address,
+        bcc_address: bcc_address,
         subject: subject,
         global_merge_vars: global_merge_vars
       },
