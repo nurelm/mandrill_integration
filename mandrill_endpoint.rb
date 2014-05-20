@@ -16,7 +16,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
       result 500, "No Email Key found in Payload"
     end
 
-    global_merge_vars = @payload['email']['variables'].map do |name, value|
+    global_merge_vars = @payload['email'].fetch('variables', []).map do |name, value|
       { 'name' => name, 'content' => value }
     end
 
