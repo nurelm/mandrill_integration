@@ -35,7 +35,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
       message: {
         from_email: from_addr,
         from_name: from_name,
-        to: to_addr.split(',').map{|email| { email: email }},
+        to: to_addr.to_s.split(',').map{|email| { email: email }},
         bcc_address: bcc_address,
         subject: subject,
         global_merge_vars: global_merge_vars
