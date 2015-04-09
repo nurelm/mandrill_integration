@@ -21,6 +21,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
     end
 
     template = @payload['email']['template']
+    merge_language = @payload['email']['merge_language']
     to_addr = @payload['email']['to']
     from_addr = @payload['email']['sender_email'] || @payload['email']['from']
     from_name = @payload['email']['sender_name'] || from_addr
@@ -39,7 +40,7 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
         bcc_address: bcc_address,
         subject: subject,
         global_merge_vars: global_merge_vars
-      },
+      }.merge(merge_language ? {merge_language: merge_language} : {}), #optional
       template_content: [
         name: 'User 1',
         content: 'Content 1'
