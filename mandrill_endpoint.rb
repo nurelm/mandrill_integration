@@ -1,4 +1,4 @@
-Dir['./lib/**/*.rb'].each { |f| require f }
+Dir['./lib/**/*.rb'].each(&method(:require))
 
 class MandrillEndpoint < EndpointBase::Sinatra::Base
   set :logging, true
@@ -11,21 +11,22 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
   post '/send_email' do
     # convert variables into Mandrill array / hash format.
     #
-    if !(@payload.key? 'email')
+    unless (@payload.key? 'email')
       add_value :payload_inspect, @payload.inspect
-      result 500, "No Email Key found in Payload"
+      result 500, 'No Email Key found in Payload'
     end
 
     global_merge_vars = @payload['email'].fetch('variables', []).map do |name, value|
       { 'name' => name, 'content' => value }
     end
 
-    template = @payload['email']['template']
-    to_addr = @payload['email']['to']
-    from_addr = @payload['email']['sender_email'] || @payload['email']['from']
-    from_name = @payload['email']['sender_name'] || from_addr
-    subject = @payload['email']['subject']
-    bcc_address = @payload['email']['bcc_address'] || ""
+    template       = @payload['email']['template']
+    merge_language = @payload['email']['merge_language']
+    to_addr        = @payload['email']['to']
+    from_addr      = @payload['email']['sender_email'] || @payload['email']['from']
+    from_name      = @payload['email']['sender_name'] || from_addr
+    subject        = @payload['email']['subject']
+    bcc_address    = @payload['email']['bcc_address'] || ''
 
     # create Mandrill request
     #
@@ -35,24 +36,23 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
       message: {
         from_email: from_addr,
         from_name: from_name,
-        to: to_addr.to_s.split(',').map{|email| { email: email }},
+        to: to_addr.to_s.split(',').map { |email| { email: email } },
         bcc_address: bcc_address,
         subject: subject,
         global_merge_vars: global_merge_vars
       },
-      template_content: [
-        name: 'User 1',
-        content: 'Content 1'
-      ]
+      template_content: [ name: 'User 1', content: 'Content 1' ]
+    }
 
-    }.to_json
+    # merge_language is optional
+    request_body[:message][:merge_language] = merge_language if merge_language.present?
 
     # send request to Mandrill API
     #
     response = HTTParty.post('https://mandrillapp.com/api/1.0/messages/send-template.json',
-                     body: request_body,
-                     timeout: 240,
-                     headers: { 'Content-Type'   => 'application/json' })
+                             body: request_body.to_json,
+                             timeout: 240,
+                             headers: { 'Content-Type'   => 'application/json' })
 
     #ugly because it could be a hash or an array
     #https://mandrillapp.com/api/docs/messages.html
@@ -68,5 +68,4 @@ class MandrillEndpoint < EndpointBase::Sinatra::Base
       process_result 500
     end
   end
-
 end
